@@ -14,8 +14,11 @@ class DescriptionType(DjangoObjectType):
             'id',
             'title',
             'tenant',
+            'country',
+            'city',
+            'district',
             'isbn',
-            'pieces',
+            'rooms',
             'price',
             'description',
             'status',
@@ -24,16 +27,21 @@ class DescriptionType(DjangoObjectType):
             'category',
             'imageurl',
             'product_tag',
+            'bailleur',
+            'surface_m2',
         )
 
 class TenantType(DjangoObjectType):
     class Meta:
         model = Tenant
         fiels = (
+            'id',
             'nomPrenoms',
             'isbn',
             'quantity',
             'date_created',
+            'status_payment',
+            'expire_date',
         )
 
 class Query(graphene.ObjectType):

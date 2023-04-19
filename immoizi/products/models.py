@@ -11,8 +11,8 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-# Model Tenant, nom et prenoms, ID, nbrr de maisons, status payment, expire date. 
-class Tenant(models.Model):
+# Model Tenant, nom et prenoms, ID, nbr de maisons, status payment, expire date. 
+class Tenant(models.Model): # grocery
     nomPrenoms = models.CharField(max_length=150)
     isbn = models.CharField(max_length=13)
     quantity = models.IntegerField()# nbr de maisons
@@ -28,7 +28,7 @@ class Tenant(models.Model):
         return self.nomPrenoms
 
 # Model Descrition prix, surface, nbr de chambres
-class Description(models.Model):
+class Description(models.Model):# book
     title = models.CharField(max_length=150) # description du proprietaire
     country = models.CharField(max_length=100, default="Côte d'Ivoire") # pays
     city = models.CharField(max_length=100, default='Abidjan') # ville

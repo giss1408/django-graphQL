@@ -1,0 +1,65 @@
+# Web ressource
+https://dockerize.io/guides/python-django-guide
+
+# start build docker container
+docker build -t python-django-immoizi-app .
+
+# run the container
+ docker run -it -p 8000:8000 python-django-immoizi-app
+ # see container id
+ docker ps -a
+
+ # stop the container
+ docker stop container_id
+
+
+ # graphQL query
+{
+  tenants {
+    id,
+    nomPrenoms,
+    expireDate,
+    statusPayment
+  }
+  descriptions {
+    country,
+    dateCreated,
+    city,
+    district,
+    bailleur {
+      nomPrenoms
+    },
+    category {
+      title
+    }
+  }
+}
+
+
+Response 
+{
+  "data": {
+    "tenants": [
+      {
+        "id": "1",
+        "nomPrenoms": "izi-immobilier",
+        "expireDate": "2023-01-27",
+        "statusPayment": true
+      }
+    ],
+    "descriptions": [
+      {
+        "country": "Côte d'Ivoire",
+        "dateCreated": "2022-09-23",
+        "city": "Abidjan",
+        "district": "Marcory",
+        "bailleur": {
+          "nomPrenoms": "izi-immobilier"
+        },
+        "category": {
+          "title": "Residence"
+        }
+      }
+    ]
+  }
+}

@@ -1,1 +1,11 @@
 env
+__pycache__/
+*.py[cod]
+.vscode/
+db.sqlite3
+*.pot
+*.log
+local_settings.py
+immoizi/immoizi/__pycache__
+immoizi/products/__pycache__
+immoizi/products/migrations/__pycache__

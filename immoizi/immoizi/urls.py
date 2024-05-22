@@ -18,8 +18,18 @@ from django.urls import path
 from graphene_django.views import GraphQLView
 from products.schema import schema
 from django.views.decorators.csrf import csrf_exempt,csrf_protect #Add this
+from django.conf import settings
+from django.conf.urls.static import static
+from products.views import hotel_image_view, success
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("graphql", csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema))),
+    path('image_upload', hotel_image_view, name='image_upload'),
+    path('success', success, name='success'),
 ]
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)
+# Add path for admin/campaign photo upload? security concern ???

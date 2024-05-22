@@ -1,5 +1,6 @@
 from django.db import models
 import datetime
+from utils.imagesManager.imagesManager_upload import make_thumbnail
 
 # Model Category, immo categories like residence, Business, Commerce, Industrie...[ Miete - Kaufen ]
 class Category(models.Model):
@@ -52,4 +53,30 @@ class Description(models.Model):# book
 
     def __str__(self):
         return self.title
+    
+# models.py Test upload images
+class Hotel(models.Model):
+    name = models.CharField(max_length=50)
+    hotel_Main_Img = models.ImageField(upload_to='images/')
+    #thumbnail = models.ImageField(upload_to='images/')
+ 
+    '''
+    def save(self, *args, **kwargs):
+        self.thumbnail = make_thumbnail(self.hotel_Main_Img, size=(100, 100))
+        
+        super().save(*args, **kwargs)
+        '''
 
+'''
+# import the `make_thumbnail` function
+from some_file import make_thumbnail
+
+class MyModel(models.Model):
+    image = models.ImageField()
+    thumbnail = models.ImageField()
+
+    def save(self, *args, **kwargs):
+        self.thumbnail = make_thumbnail(self.image, size=(100, 100))
+
+        super().save(*args, **kwargs)
+'''

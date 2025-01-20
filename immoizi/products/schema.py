@@ -117,7 +117,7 @@ class UpdateDescription(graphene.Mutation):
         return UpdateDescription(description=description)
 
 
-''' GroceryType'''
+''' TenantType'''
 class TenantType(DjangoObjectType):
     class Meta:
         model = Tenant
@@ -129,6 +129,7 @@ class TenantType(DjangoObjectType):
             'date_created',
             'status_payment',
             'expire_date',
+            'phone_number',
         )
 
 class Query(graphene.ObjectType):

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'products',
     'graphene_django',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [

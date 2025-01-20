@@ -1,6 +1,9 @@
 # Web ressource
 https://dockerize.io/guides/python-django-guide
 
+#local start
+source env/bin/activate
+
 # start build docker container
 docker build -t python-django-immoizi-app .
 

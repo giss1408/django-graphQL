@@ -1,8 +1,10 @@
 from django.db import models
 import datetime
 from utils.imagesManager.imagesManager_upload import make_thumbnail
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Model Category, immo categories like residence, Business, Commerce, Industrie...[ Miete - Kaufen ]
+#!!! Create enum for residence category
 class Category(models.Model):
     title = models.CharField(max_length=50)
 
@@ -20,6 +22,7 @@ class Tenant(models.Model): # grocery
     status_payment = models.BooleanField(default=False)
     expire_date = models.DateField(default=datetime.date.today)
     date_created = models.DateField(auto_now_add=True)
+    phone_number = PhoneNumberField( blank=True )
 
 
     class Meta:
@@ -27,6 +30,11 @@ class Tenant(models.Model): # grocery
 
     def __str__(self):
         return self.nomPrenoms
+
+
+#class Gui(models.Model):
+#    api_version = models.IntegerField(default=00)
+#    images = models.ArrayField( models.URLField(max_length=200), size=10)
 
 # Model Descrition prix, surface, nbr de chambres
 class Description(models.Model):# book
@@ -44,7 +52,8 @@ class Description(models.Model):# book
     date_created = models.DateField(auto_now_add=True)
     date_toEnter = models.DateField(default=datetime.date.today) # Libre a partir de 
     category = models.ForeignKey(Category, related_name='description', on_delete=models.CASCADE)
-    imageurl = models.URLField()
+    imageurl = models.URLField()# Shoud be an array of links for this element - Create class GUI
+    #nombre de photos
     product_tag = models.CharField(max_length=10)
     bailleur = models.ForeignKey(Tenant, blank=True, null=True, on_delete=models.CASCADE)
 

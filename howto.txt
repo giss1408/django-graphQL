@@ -1,4 +1,4 @@
-1# Web ressource
+# Web ressource
 https://dockerize.io/guides/python-django-guide
 
 #local start

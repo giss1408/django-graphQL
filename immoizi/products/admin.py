@@ -1,9 +1,7 @@
 from django.contrib import admin
-from .models import Landlord, Property, Tenant, Lease, AfricanLocation
+from .models import Category, Description, Tenant
 
 # Register your models here.
-admin.site.register(Landlord)
-admin.site.register(Property)
+admin.site.register(Category)
+admin.site.register(Description)
 admin.site.register(Tenant)
-admin.site.register(Lease)
-admin.site.register(AfricanLocation)

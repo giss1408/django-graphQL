@@ -5,25 +5,15 @@ from .models import Category, Description, Tenant
 # Category Type
 class CategoryType(DjangoObjectType):
     class Meta:
-        model = Landlord
-        fields = ('id', 'name', 'bio', 'phone', 'city', 'location', 'active','score')
+        model = Category
+        fields = ('id', 'title')
 
-class LandlordInput(graphene.InputObjectType):
-    name = graphene.String()
-    #image = graphene.Field(ImageField)
-    phone = graphene.String(max_length=11, default='')
-    bio = graphene.String(max_length=100, default='')
-    city = graphene.String(max_length=20, default='Abidjan')
-    location = graphene.String(max_length=40, default='Zone 4')
-    active = graphene.Boolean(default=False)
-    score = graphene.Decimal(decimal_places=2, max_digits=2)
-
-class UpdateLandlord(graphene.Mutation):
+class UpdateCategory(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
         title = graphene.String(required=True)
 
-    landlord = graphene.Field(LandlordType)
+    category = graphene.Field(CategoryType)
 
     @classmethod
     def mutate(cls, root, info, id, title):
@@ -32,7 +22,7 @@ class UpdateLandlord(graphene.Mutation):
         category.save()
         return UpdateCategory(category=category)
 
-class CreateLandlord(graphene.Mutation):
+class CreateCategory(graphene.Mutation):
     class Arguments:
         title = graphene.String(required=True)
 
@@ -62,23 +52,12 @@ class DescriptionInput(graphene.InputObjectType):
     bailleur = graphene.String()
     status = graphene.String()
     price = graphene.Int()
-    kitchen = graphene.Int(default=1)
-    hall = graphene.String(max_length=3)
-    balcony = graphene.String(max_length=3)
-    desc = graphene.String(max_length=200)
-    bedrooms = graphene.Int(default=0)
-    bathrooms = graphene.Int(default=1)
-    garage = graphene.Int(default=0)
-    sqft = graphene.Int()
-    is_available = graphene.Boolean(default=True)
-    is_published = graphene.Boolean(default=False)
-    standing=graphene.Int(default=0)
 
-class CreateProperty(graphene.Mutation):
+class CreateDescription(graphene.Mutation):
     class Arguments:
-        input = PropertyInput(required=True)
+        input = DescriptionInput(required=True)
 
-    property = graphene.Field(PropertyType)
+    description = graphene.Field(DescriptionType)
 
     @classmethod
     def mutate(cls, root, info, input):
@@ -93,12 +72,12 @@ class CreateProperty(graphene.Mutation):
         )
         return CreateDescription(description=description)
 
-class UpdateProperty(graphene.Mutation):
+class UpdateDescription(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
         input = DescriptionInput(required=True)
 
-    property = graphene.Field(PropertyType)
+    description = graphene.Field(DescriptionType)
 
     @classmethod
     def mutate(cls, root, info, id, input):
@@ -118,14 +97,9 @@ class TenantType(DjangoObjectType):
         )
 
 class Query(graphene.ObjectType):
-    landlords = graphene.List(LandlordType)
-    leases = graphene.List(LeaseType)
+    categories = graphene.List(CategoryType)
+    descriptions = graphene.List(DescriptionType)
     tenants = graphene.List(TenantType)
-    properties = graphene.List(PropertyType)
-    africanLocations = graphene.List(AfricanLocationType)
-
-    def resolve_landlords( root, info, **kwargs):
-        return Landlord.objects.all()
 
     def resolve_categories(self, info, **kwargs):
         return Category.objects.all()
@@ -136,23 +110,10 @@ class Query(graphene.ObjectType):
     def resolve_tenants(self, info, **kwargs):
         return Tenant.objects.all()
 
-    def resolve_africanLocations( root, info, **kwargs):
-        return AfricanLocation.objects.all()
-
 class Mutation(graphene.ObjectType):
-    update_landlord = UpdateLandlord.Field()
-    create_landlord = CreateLandlord.Field()
-
-    create_teant = CreateTenant.Field()
-    update_tenant = UpdateTenant.Field()
-
-    create_property = CreateProperty.Field()
-    update_property = UpdateProperty.Field()
-
-    create_lease = CreateLease.Field()
-    update_lease = UpdateLease.Field()
-
-    create_africanLocation = CreateAfricanLocation.Field()
-    update_africanLocation = UpdateAfricanLocation.Field()
+    update_category = UpdateCategory.Field()
+    create_category = CreateCategory.Field()
+    create_description = CreateDescription.Field()
+    update_description = UpdateDescription.Field()
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

@@ -32,11 +32,19 @@ DEBUG = env('DEBUG')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
+# Add CORS settings
+CORS_ALLOW_ALL_ORIGINS = True  # For development only
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://192.168.178.41:8000"
+]
 
 ALLOWED_HOSTS = [
-    '192.168.178.98',
+    '192.168.178.41',
     'localhost',
     '127.0.0.1',
+    "*"
 ]
 
 
@@ -51,7 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'products',
     'graphene_django',
-    'phonenumber_field',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'immoizi.urls'
